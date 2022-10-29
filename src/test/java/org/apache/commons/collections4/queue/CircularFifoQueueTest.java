@@ -477,7 +477,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     @Test
     @SuppressWarnings("unchecked")
-    public void testFirstInFirstOut() {
+    public void testIsFirstInFirstOut() {
         final CircularFifoQueue<E> queue = new CircularFifoQueue<>(5);
 
         queue.add((E) "1");
@@ -490,10 +490,14 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
     @SuppressWarnings("unchecked")
     public void testAddSameElementTypeWhenSizeIsValid() {
         final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
-        queue.add(1);
-        queue.add(2);
-        queue.add(3);
-        assertEquals(3, queue.size());
+        try {
+            queue.add(1);
+            queue.add(2);
+            queue.add(3);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
     }
 
     @Ignore
