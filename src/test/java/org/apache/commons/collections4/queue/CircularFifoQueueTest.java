@@ -22,13 +22,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Queue;
+import java.util.*;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -43,9 +39,9 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
     }
 
     /**
-     *  Runs through the regular verifications, but also verifies that
-     *  the buffer contains the same elements in the same sequence as the
-     *  list.
+     * Runs through the regular verifications, but also verifies that
+     * the buffer contains the same elements in the same sequence as the
+     * list.
      */
     @Override
     public void verify() {
@@ -61,6 +57,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     /**
      * Overridden because CircularFifoQueue doesn't allow null elements.
+     * 
      * @return false
      */
     @Override
@@ -70,6 +67,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     /**
      * Overridden because CircularFifoQueue isn't fail fast.
+     * 
      * @return false
      */
     @Override
@@ -255,13 +253,13 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         fifo.add((E) "2");
         fifo.add((E) "3");
         fifo.add((E) "4");
-        fifo.add((E) "5");  // end=0
-        fifo.add((E) "6");  // end=1
-        fifo.add((E) "7");  // end=2
+        fifo.add((E) "5"); // end=0
+        fifo.add((E) "6"); // end=1
+        fifo.add((E) "7"); // end=2
 
         assertEquals("[3, 4, 5, 6, 7]", fifo.toString());
 
-        fifo.remove("4");  // remove element in middle of array, after start
+        fifo.remove("4"); // remove element in middle of array, after start
         assertEquals("[3, 5, 6, 7]", fifo.toString());
     }
 
@@ -274,13 +272,13 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         fifo.add((E) "2");
         fifo.add((E) "3");
         fifo.add((E) "4");
-        fifo.add((E) "5");  // end=0
-        fifo.add((E) "6");  // end=1
-        fifo.add((E) "7");  // end=2
+        fifo.add((E) "5"); // end=0
+        fifo.add((E) "6"); // end=1
+        fifo.add((E) "7"); // end=2
 
         assertEquals("[3, 4, 5, 6, 7]", fifo.toString());
 
-        fifo.remove("5");  // remove element at last pos in array
+        fifo.remove("5"); // remove element at last pos in array
         assertEquals("[3, 4, 6, 7]", fifo.toString());
     }
 
@@ -293,13 +291,13 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         fifo.add((E) "2");
         fifo.add((E) "3");
         fifo.add((E) "4");
-        fifo.add((E) "5");  // end=0
-        fifo.add((E) "6");  // end=1
-        fifo.add((E) "7");  // end=2
+        fifo.add((E) "5"); // end=0
+        fifo.add((E) "6"); // end=1
+        fifo.add((E) "7"); // end=2
 
         assertEquals("[3, 4, 5, 6, 7]", fifo.toString());
 
-        fifo.remove("6");  // remove element at position zero in array
+        fifo.remove("6"); // remove element at position zero in array
         assertEquals("[3, 4, 5, 7]", fifo.toString());
     }
 
@@ -312,13 +310,13 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         fifo.add((E) "2");
         fifo.add((E) "3");
         fifo.add((E) "4");
-        fifo.add((E) "5");  // end=0
-        fifo.add((E) "6");  // end=1
-        fifo.add((E) "7");  // end=2
+        fifo.add((E) "5"); // end=0
+        fifo.add((E) "6"); // end=1
+        fifo.add((E) "7"); // end=2
 
         assertEquals("[3, 4, 5, 6, 7]", fifo.toString());
 
-        fifo.remove("7");  // remove element at position one in array
+        fifo.remove("7"); // remove element at position one in array
         assertEquals("[3, 4, 5, 6]", fifo.toString());
     }
 
@@ -331,14 +329,14 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         fifo.add((E) "2");
         fifo.add((E) "3");
         fifo.add((E) "4");
-        fifo.add((E) "5");  // end=0
-        fifo.add((E) "6");  // end=1
-        fifo.add((E) "7");  // end=2
-        fifo.add((E) "8");  // end=3
+        fifo.add((E) "5"); // end=0
+        fifo.add((E) "6"); // end=1
+        fifo.add((E) "7"); // end=2
+        fifo.add((E) "8"); // end=3
 
         assertEquals("[4, 5, 6, 7, 8]", fifo.toString());
 
-        fifo.remove("7");  // remove element at position one in array, need to shift 8
+        fifo.remove("7"); // remove element at position one in array, need to shift 8
         assertEquals("[4, 5, 6, 8]", fifo.toString());
     }
 
@@ -351,14 +349,14 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         fifo.add((E) "2");
         fifo.add((E) "3");
         fifo.add((E) "4");
-        fifo.add((E) "5");  // end=0
-        fifo.add((E) "6");  // end=1
-        fifo.add((E) "7");  // end=2
-        fifo.add((E) "8");  // end=3
+        fifo.add((E) "5"); // end=0
+        fifo.add((E) "6"); // end=1
+        fifo.add((E) "7"); // end=2
+        fifo.add((E) "8"); // end=3
 
         assertEquals("[4, 5, 6, 7, 8]", fifo.toString());
 
-        fifo.remove("8");  // remove element at position two in array
+        fifo.remove("8"); // remove element at position two in array
         assertEquals("[4, 5, 6, 7]", fifo.toString());
     }
 
@@ -375,7 +373,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         new ObjectOutputStream(bos).writeObject(b);
 
         final CircularFifoQueue<E> b2 = (CircularFifoQueue<E>) new ObjectInputStream(
-            new ByteArrayInputStream(bos.toByteArray())).readObject();
+                new ByteArrayInputStream(bos.toByteArray())).readObject();
 
         assertEquals(1, b2.size());
         assertTrue(b2.contains("a"));
@@ -388,7 +386,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         new ObjectOutputStream(bos).writeObject(b2);
 
         final CircularFifoQueue<E> b3 = (CircularFifoQueue<E>) new ObjectInputStream(
-            new ByteArrayInputStream(bos.toByteArray())).readObject();
+                new ByteArrayInputStream(bos.toByteArray())).readObject();
 
         assertEquals(2, b3.size());
         assertTrue(b3.contains("a"));
@@ -455,12 +453,14 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         return "4";
     }
 
-//    public void testCreate() throws Exception {
-//        resetEmpty();
-//        writeExternalFormToDisk((java.io.Serializable) getCollection(), "src/test/resources/data/test/CircularFifoQueue.emptyCollection.version4.obj");
-//        resetFull();
-//        writeExternalFormToDisk((java.io.Serializable) getCollection(), "src/test/resources/data/test/CircularFifoQueue.fullCollection.version4.obj");
-//    }
+    // public void testCreate() throws Exception {
+    // resetEmpty();
+    // writeExternalFormToDisk((java.io.Serializable) getCollection(),
+    // "src/test/resources/data/test/CircularFifoQueue.emptyCollection.version4.obj");
+    // resetFull();
+    // writeExternalFormToDisk((java.io.Serializable) getCollection(),
+    // "src/test/resources/data/test/CircularFifoQueue.fullCollection.version4.obj");
+    // }
 
     /**
      * {@inheritDoc}
@@ -470,4 +470,225 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         return (CircularFifoQueue<E>) super.getCollection();
     }
 
+    @Test
+    public void testIsFirstInFirstOut() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(5);
+
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertEquals(queue.poll(), "1");
+    }
+
+    @Test
+    public void testAddSameElementTypeWhenSizeIsValid() {
+        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        try {
+            queue.add(1);
+            queue.add(2);
+            queue.add(3);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    @Ignore
+    @Test
+    public void testAddVaryElementTypeWhenSizeIsValidShouldBuildFailed() {
+        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        queue.add(1);
+        // queue.add("2"); Build failed
+    }
+
+    /**
+     * MC/DC test for {@link #get(int)}.
+     */
+    // | Test case | index < 0 | index >= sz|
+    // |-----------|-----------|------------|
+    // | 1 | T | F |
+    // | 2 | F | F |
+    // | 3 | F | T |
+
+    @Test
+    public void testGetElementWhenIndexLessThanZeroThrowError() {
+        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+        assertThrows(NoSuchElementException.class, () -> queue.get(-1));
+    }
+
+    @Test
+    public void testGetElementWhenIndexGreaterThanZeroAndLessThanSize() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertEquals("2", queue.get(1));
+    }
+
+    @Test
+    public void testGetElementWhenIndexGreaterThanSizeThrowError() {
+        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+        assertThrows(NoSuchElementException.class, () -> queue.get(3));
+    }
+
+    @Test
+    public void testRemoveWhenSizeIsZeroThrowError() {
+        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        assertThrows(NoSuchElementException.class, () -> queue.remove());
+    }
+
+    @Test
+    public void testRemoveWhenSizeIsOne() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        assertEquals("1", queue.remove());
+    }
+
+    @Test
+    public void testRemoveWhenStartEqualsMaxElements() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        queue.remove();
+        queue.remove();
+        assertEquals("3", queue.remove());
+    }
+
+    @Test
+    public void testInitWithHashSetElementShouldBeValid() {
+        Set<Integer> set = new HashSet<Integer>();
+        set.add(1);
+        set.add(2);
+        set.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(set);
+            assertEquals(set.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testInitWithTreeSetElementShouldBeValid() {
+        Set<Integer> tree = new TreeSet<Integer>();
+        tree.add(1);
+        tree.add(2);
+        tree.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(tree);
+            assertEquals(tree.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testInitWithLinkedListElementShouldBeValid() {
+        LinkedList<Integer> linkedList = new LinkedList<Integer>();
+        linkedList.add(1);
+        linkedList.add(2);
+        linkedList.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(linkedList);
+            assertEquals(linkedList.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testInitWithPriorityQueueElementShouldBeValid() {
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+        pq.add(1);
+        pq.add(2);
+        pq.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(pq);
+            assertEquals(pq.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testInitWithVectorElementShouldBeValid() {
+        List<Integer> list = new Vector<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(list);
+            assertEquals(list.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testInitWithStackElementShouldBeValid() {
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.add(1);
+        stack.add(2);
+        stack.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(stack);
+            assertEquals(stack.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testGetWhenInputIndexIsLowerBoundary() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        assertEquals("1", queue.get(0));
+    }
+
+    @Test
+    public void testGetWhenInputIndexIsInvalid() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        assertThrows(NoSuchElementException.class, () -> queue.get(-1));
+    }
+
+    @Test
+    public void testGetWhenInputIndexIsNormalVale() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertEquals("2", queue.get(1));
+    }
+
+    @Test
+    public void testGetWhenInputIndexIsUpperBoundary() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertEquals("3", queue.get(2));
+    }
+
+    @Test
+    public void testGetWhenInputIsOverBoundary() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertThrows(NoSuchElementException.class, () -> queue.get(4));
+    }
 }
