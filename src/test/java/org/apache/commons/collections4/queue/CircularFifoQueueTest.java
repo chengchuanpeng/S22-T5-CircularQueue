@@ -650,4 +650,45 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
             fail("should not have thrown error");
         }
     }
+
+    @Test
+    public void testGetWhenInputIndexIsLowerBoundary() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        assertEquals("1", queue.get(0));
+    }
+
+    @Test
+    public void testGetWhenInputIndexIsInvalid() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        assertThrows(NoSuchElementException.class, () -> queue.get(-1));
+    }
+
+    @Test
+    public void testGetWhenInputIndexIsNormalVale() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertEquals("2", queue.get(1));
+    }
+
+    @Test
+    public void testGetWhenInputIndexIsUpperBoundary() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertEquals("3", queue.get(2));
+    }
+
+    @Test
+    public void testGetWhenInputIsOverBoundary() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertThrows(NoSuchElementException.class, () -> queue.get(4));
+    }
 }
