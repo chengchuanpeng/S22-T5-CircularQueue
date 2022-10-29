@@ -22,17 +22,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Queue;
+import java.util.*;
 
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
-
-import junit.framework.AssertionFailedError;
 
 /**
  * Test cases for CircularFifoQueue.
@@ -566,5 +559,95 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         queue.remove();
         queue.remove();
         assertEquals("3", queue.remove());
+    }
+
+    @Test
+    public void testInitWithHashSetElementShouldBeValid() {
+        Set<Integer> set = new HashSet<Integer>();
+        set.add(1);
+        set.add(2);
+        set.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(set);
+            assertEquals(set.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testInitWithTreeSetElementShouldBeValid() {
+        Set<Integer> tree = new TreeSet<Integer>();
+        tree.add(1);
+        tree.add(2);
+        tree.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(tree);
+            assertEquals(tree.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testInitWithLinkedListElementShouldBeValid() {
+        LinkedList<Integer> linkedList = new LinkedList<Integer>();
+        linkedList.add(1);
+        linkedList.add(2);
+        linkedList.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(linkedList);
+            assertEquals(linkedList.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testInitWithPriorityQueueElementShouldBeValid() {
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+        pq.add(1);
+        pq.add(2);
+        pq.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(pq);
+            assertEquals(pq.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testInitWithVectorElementShouldBeValid() {
+        List<Integer> list = new Vector<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(list);
+            assertEquals(list.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testInitWithStackElementShouldBeValid() {
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.add(1);
+        stack.add(2);
+        stack.add(3);
+
+        try {
+            final CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(stack);
+            assertEquals(stack.size(), queue.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
     }
 }
