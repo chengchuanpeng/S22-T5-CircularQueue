@@ -470,4 +470,92 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         return (CircularFifoQueue<E>) super.getCollection();
     }
 
+    /**
+     * Step B
+     * Test relationship between queue size and current index.
+     */
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testIndexIsLowerBoundWhenSizeIsValid() {
+        // arrange
+        final CircularFifoQueue<E> fifo = new CircularFifoQueue<>(3);
+
+        try {
+            // act
+            fifo.add((E) "1");
+            fifo.add((E) "2");
+            fifo.add((E) "3");
+            fifo.get(1);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    public void testIndexBelowLowerBoundWhenSizeThrowError() {
+        // arrange
+        final CircularFifoQueue<E> fifo = new CircularFifoQueue<>(3);
+
+        // act
+        fifo.add((E) "1");
+        fifo.add((E) "2");
+        fifo.add((E) "3");
+
+        // assert
+        assertThrows(NoSuchElementException.class, () -> fifo.get(-1));
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testValidIndexWhichIsNotBoundaryWhenSizeIsValid() {
+        // arrange
+        final CircularFifoQueue<E> fifo = new CircularFifoQueue<>(3);
+
+        try {
+            // act
+            fifo.add((E) "1");
+            fifo.add((E) "2");
+            fifo.add((E) "3");
+            fifo.get(1);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testIndexIsUpperBoundWhenSizeIsValid() {
+        // arrange
+        final CircularFifoQueue<E> fifo = new CircularFifoQueue<>(3);
+
+        try {
+            // act
+            fifo.add((E) "1");
+            fifo.add((E) "2");
+            fifo.add((E) "3");
+            fifo.get(2);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testIndexAboveUpperBoundWhenSizeThrowError() {
+        // arrange
+        final CircularFifoQueue<E> fifo = new CircularFifoQueue<>(3);
+
+        // act
+        fifo.add((E) "1");
+        fifo.add((E) "2");
+        fifo.add((E) "3");
+
+        // assert
+        assertThrows(NoSuchElementException.class, () -> fifo.get(4));
+    }
+
 }
