@@ -369,6 +369,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // case ID: E2
     @Test
+    @Ignore
     public void testAddVaryElementTypeWhenSizeIsValidShouldBuildFailed() {
         final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
         queue.add(1);
@@ -748,10 +749,9 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         fifo.add(1);
         fifo.add(2);
         fifo.add(3);
-        assertEquals(maxSize, fifo.size());
         assertTrue(fifo.isAtFullCapacity());
+        assertFalse(fifo.isFull());
     }
-
 
     // case ID: N1
     @Test
@@ -1044,7 +1044,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // case ID: Y2
     @Test
-    public void testIteratorRemoveFirstIndex() {
+    public void testIteratorRemoveElementAtFirstIndex() {
         final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
         fifo.add(1);
         Iterator<Integer> itr = fifo.iterator();
@@ -1058,7 +1058,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // case ID: Y3
     @Test
-    public void testIteratorRemoveAtIndexBetweenStartAndEnd() {
+    public void testIteratorRemoveElementAtIndexBetweenStartAndEnd() {
         final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
         fifo.add(1);
         fifo.add(2);
@@ -1077,7 +1077,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // case ID: Y4
     @Test
-    public void testIteratorRemoveAtEndPos() {
+    public void testIteratorRemoveElementAtEndPos() {
         final CircularFifoQueue<E> fifo = new CircularFifoQueue<>(3);
         fifo.add((E) "1");
         fifo.add((E) "2");
