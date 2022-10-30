@@ -18,16 +18,20 @@ package org.apache.commons.collections4.queue;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Queue;
+import java.util.HashSet;
+import java.util.TreeSet;
+import java.util.LinkedList;
+import java.util.Vector;
+import java.util.PriorityQueue;
+import java.util.Stack;
+
 
 import org.junit.jupiter.api.Test;
 
@@ -375,7 +379,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         new ObjectOutputStream(bos).writeObject(b);
 
         final CircularFifoQueue<E> b2 = (CircularFifoQueue<E>) new ObjectInputStream(
-            new ByteArrayInputStream(bos.toByteArray())).readObject();
+                new ByteArrayInputStream(bos.toByteArray())).readObject();
 
         assertEquals(1, b2.size());
         assertTrue(b2.contains("a"));
@@ -388,7 +392,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         new ObjectOutputStream(bos).writeObject(b2);
 
         final CircularFifoQueue<E> b3 = (CircularFifoQueue<E>) new ObjectInputStream(
-            new ByteArrayInputStream(bos.toByteArray())).readObject();
+                new ByteArrayInputStream(bos.toByteArray())).readObject();
 
         assertEquals(2, b3.size());
         assertTrue(b3.contains("a"));
@@ -470,4 +474,195 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         return (CircularFifoQueue<E>) super.getCollection();
     }
 
+
+
+    // D1
+    @Test
+    public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_WhenAddTwoElement() {
+
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(1);
+        queue.add(1);
+        queue.add(2);
+        int queueValue = queue.get(0);
+        // 2 is latest element
+        assertEquals(2, queueValue);
+        // 1 is oldest element should be replaced
+        assertFalse(queue.contains(1));
+    }
+
+    // D2
+
+    @Test
+    public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_WhenAddElevenElement() {
+
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(10);
+        for(int i=1;i<=11;i++) queue.add(i);
+        int queueValue = queue.get(0);
+        // make sure queue element is oldest
+        assertEquals(2, queueValue);
+        // first element is not in queue
+        assertFalse(queue.contains(1));
+    }
+
+    // D3
+    @Test
+    public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_WhenOfferOneElement() {
+
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(1);
+        queue.offer(1);
+        queue.offer(2);
+        int queueValue = queue.get(0);
+        assertEquals(2, queueValue);
+        assertFalse(queue.contains(1));
+    }
+
+    // D4
+    @Test
+    public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_WhenQueueSizeIsTenOfferlevenElement() {
+
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(10);
+        for(int i=1;i<=11;i++) queue.offer(i);
+        int queueValue = queue.get(0);
+        assertEquals(2, queueValue);
+        assertFalse(queue.contains(1));
+    }
+
+    // D5
+    @Test
+    public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_WhenQueueSizeIsTwoAddThreeElement() {
+
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(2);
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+        int queueValue = queue.get(1);
+        assertEquals(3, queueValue);
+        assertFalse(queue.contains(1));
+    }
+
+    // D6
+    @Test
+    public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_WhenQueueSizeIsTenAddThirteenElement() {
+
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(10);
+        for(int i=1;i<=13;i++) queue.add(i);
+        int queueValue = queue.get(9);
+        assertEquals(13, queueValue);
+        assertFalse(queue.contains(1));
+    }
+
+    // D7
+    @Test
+    public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_WhenQueueSizeIsTwoOfferThreeElement() {
+
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(2);
+        queue.offer(1);
+        queue.offer(2);
+        queue.offer(3);
+        int queueValue = queue.get(1);
+        assertEquals(3, queueValue);
+        assertFalse(queue.contains(1));
+    }
+
+    // D8
+    @Test
+    public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_WhenQueueSizeIsTenOfferThirteenElement() {
+
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(10);
+        for(int i=1;i<=13;i++) queue.offer(i);
+        int queueValue = queue.get(9);
+        assertEquals(13, queueValue);
+        assertFalse(queue.contains(1));
+    }
+
+
+    // G1
+    @Test
+    public void testConstructorDefaultSize() {
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>();
+        assertEquals(32, queue.maxSize());
+    }
+
+    // I1, Q1
+    @Test
+    public void testInitWithHashSetElementShouldBeValid() {
+        HashSet<Integer> set = new HashSet<Integer>();
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(set);
+        assertEquals(set.size(), queue.size());
+    }
+
+    // I2, Q2
+    @Test
+    public void testInitWithArrayListElementShouldBeValid() {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(list);
+        assertEquals(list.size(), queue.size());
+    }
+
+    // I3, Q3
+    @Test
+    public void testInitWithTreeSetElementShouldBeValid() {
+        TreeSet<Integer> set = new TreeSet<Integer>();
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(set);
+        assertEquals(set.size(), queue.size());
+    }
+
+    // I4, Q4
+    @Test
+    public void testInitWithLinkedListElementShouldBeValid() {
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(list);
+        assertEquals(list.size(), queue.size());
+    }
+
+    // I5, Q5
+    @Test
+    public void testInitWithVectorElementShouldBeValid() {
+        Vector<Integer> list = new Vector<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(list);
+        assertEquals(list.size(), queue.size());
+    }
+
+    // I6, Q6
+    @Test
+    public void testInitWithPriorityQueueElementShouldBeValid() {
+        PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+        pq.add(1);
+        pq.add(2);
+        pq.add(3);
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(pq);
+        assertEquals(pq.size(), queue.size());
+    }
+
+    // I7, Q7
+    @Test
+    public void testInitWithStackElementShouldBeValid() {
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.add(1);
+        stack.add(2);
+        stack.add(3);
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<Integer>(stack);
+        assertEquals(stack.size(), queue.size());
+    }
+
+    // I8, Q8
+    @Test
+    public void testInitWithNullShouldBeInValid() {
+        assertThrows(NullPointerException.class, () -> new CircularFifoQueue<Integer>(null));
+    }
 }
