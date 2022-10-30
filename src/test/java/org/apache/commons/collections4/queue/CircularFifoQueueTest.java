@@ -512,7 +512,9 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         queue.offer(1);
         queue.offer(2);
         int queueValue = queue.get(0);
+        // make sure queue element is oldest
         assertEquals(2, queueValue);
+        // first element is not in queue
         assertFalse(queue.contains(1));
     }
 
@@ -523,7 +525,9 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(10);
         for(int i=1;i<=11;i++) queue.offer(i);
         int queueValue = queue.get(0);
+        // make sure queue element is oldest
         assertEquals(2, queueValue);
+        // first element is not in queue
         assertFalse(queue.contains(1));
     }
 
@@ -536,7 +540,9 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         queue.add(2);
         queue.add(3);
         int queueValue = queue.get(1);
+        // make sure latest element is at the final index of queue
         assertEquals(3, queueValue);
+        // first element is not in queue
         assertFalse(queue.contains(1));
     }
 
@@ -547,7 +553,9 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(10);
         for(int i=1;i<=13;i++) queue.add(i);
         int queueValue = queue.get(9);
+        // make sure latest element is at the final index of queue
         assertEquals(13, queueValue);
+        // first element is not in queue
         assertFalse(queue.contains(1));
     }
 
@@ -559,8 +567,10 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
+        // make sure latest element is at the final index of queue
         int queueValue = queue.get(1);
         assertEquals(3, queueValue);
+        // first element is not in queue
         assertFalse(queue.contains(1));
     }
 
@@ -571,7 +581,9 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(10);
         for(int i=1;i<=13;i++) queue.offer(i);
         int queueValue = queue.get(9);
+        // make sure latest element is at the final index of queue
         assertEquals(13, queueValue);
+        // first element is not in queue
         assertFalse(queue.contains(1));
     }
 
@@ -665,4 +677,5 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
     public void testInitWithNullShouldBeInValid() {
         assertThrows(NullPointerException.class, () -> new CircularFifoQueue<Integer>(null));
     }
+
 }
