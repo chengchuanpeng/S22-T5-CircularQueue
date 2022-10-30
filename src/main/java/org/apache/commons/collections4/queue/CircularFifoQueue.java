@@ -390,7 +390,7 @@ public class CircularFifoQueue<E> extends AbstractCollection<E>
                 if (lastReturnedIndex == -1) {
                     throw new IllegalStateException();
                 }
-
+                
                 // First element can be removed quickly
                 if (lastReturnedIndex == start) {
                     CircularFifoQueue.this.remove();
@@ -424,5 +424,4 @@ public class CircularFifoQueue<E> extends AbstractCollection<E>
 
         };
     }
-
 }
