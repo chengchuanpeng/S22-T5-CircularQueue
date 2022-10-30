@@ -121,84 +121,222 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
     /**
      ************************** SVT Test case ***************************
      */
-    // Shang-Yi
-    // case ID: J2
+    // case ID: A1
     @Test
-    @SuppressWarnings("unchecked")
-    public void testAddOfferWhenIsAtFullCapacityIsFalseShouldAddWithoutReplacingOldElem() {
-        // arrange
-        final CircularFifoQueue<E> fifo = new CircularFifoQueue<>(3);
-
-        // act
-        fifo.add((E) "1");
-        fifo.add((E) "2");
-
-        // assert
-        assertTrue(fifo.contains("1"));
+    public void testInitWithSizeEqualsToThree() {
+        int size = 3;
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(size);
+        assertEquals(size, fifo.maxSize());
     }
 
-    /**
-     * Step N - Test Case Specs - isAtFullCapacity()
-     */
-    // case ID: N2
+    // case ID: A2
     @Test
-    public void testisAtFullCapacityShouldBeTrueWhenReachMaxSize() {
-        // arrange
-        int maxSize = 3;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
-        fifo.add(1);
-        fifo.add(2);
-        fifo.add(3);
-
-        // assert
-        assertTrue(fifo.isAtFullCapacity());
+    public void testInitWithSizeEqualToZeroShouldThrowException() {
+        int size = 0;
+        assertThrows(IllegalArgumentException.class, () -> new CircularFifoQueue<Integer>(size));
     }
 
-    // case ID: N1
+    // case ID: A3
     @Test
-    public void testisAtFullCapacityShouldBeFalseWhenNotReachMaxSize() {
-        // arrange
-        int maxSize = 3;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
-
-        // assert
-        assertFalse(fifo.isAtFullCapacity());
+    public void testInitWithSizeEqualsToOne() {
+        int size = 1;
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(size);
+        assertEquals(size, fifo.maxSize());
     }
 
-    /**
-     * Step P - Test Case Specs - clear()
-     */
-    // case ID: P1
+    // case ID: A4
     @Test
-    public void testQueueIsNotEmptyWhenThereAreElemsAndNotClear() {
-        // arrange
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
-        fifo.add(1);
-
-        // assert
-        assertFalse(fifo.isEmpty());
+    public void testInitWithSizeEqualsToMaxInt() {
+    //    int maxSize = Integer.MAX_VALUE;
+    //    final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(maxSize);
+    //    assertEquals(maxSize, fifo.maxSize());
     }
 
-    /**
-     * Step K - Test Case Specs - public int size()
-     */
-    // case ID: K2
+    // case ID: A5
     @Test
-    public void testSizeFnUpperBoundary() {
-        int maxSize = 3;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
-        fifo.add(1);
-        fifo.add(2);
-        fifo.add(3);
-        assertEquals(maxSize, fifo.size());
+    public void testInitWithSizeExceedMaxIntShouldThrowException() {
+        int offset = 10;
+        int maxSize = Integer.MAX_VALUE + offset;
+        assertThrows(IllegalArgumentException.class, () -> new CircularFifoQueue<Integer>(maxSize));
     }
 
-    // 成全
-    /**
-     * Step D
-     * Test add/offer queue can add new items and replace the oldest one when queue
-     * size is fixed and queue reaches its max size.
-     */
+    // case ID: A6
+    @Test
+    public void testInitWithNullElementShouldThrowException() {
+        assertThrows(NullPointerException.class, () -> new CircularFifoQueue<Integer>(null));
+    }
+
+    // // case ID: A7
+    @Test
+    public void testInitWithPrimitiveTypeShouldHaveSyntaxError() {
+        // Initialize CircularFifoQueue with primitive type should have syntax error
+        // final CircularFifoQueue<int> fifo = new CircularFifoQueue<int>(maxSize);
+    }
+
+    // case ID: A8
+    @Test
+    public void testInitArrayListCircularFifoQueue() {
+        try {
+            final CircularFifoQueue<ArrayList<Integer>> queue = new CircularFifoQueue<ArrayList<Integer>>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A9
+    @Test
+    public void testInitHashSetCircularFifoQueue() {
+        try {
+            final CircularFifoQueue<HashSet<Integer>> queue = new CircularFifoQueue<HashSet<Integer>>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A10
+    @Test
+    public void testInitTreeSetCircularFifoQueue() {
+        try {
+            final CircularFifoQueue<TreeSet<Integer>> queue = new CircularFifoQueue<TreeSet<Integer>>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A11
+    @Test
+    public void testInitLinkedListCircularFifoQueue() {
+        try {
+            final CircularFifoQueue<LinkedList<Integer>> queue = new CircularFifoQueue<LinkedList<Integer>>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A12
+    @Test
+    public void testInitVectorCircularFifoQueue() {
+        try {
+            final CircularFifoQueue<Vector<Integer>> queue = new CircularFifoQueue<Vector<Integer>>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A13
+    @Test
+    public void testInitPriorityQueueCircularFifoQueue() {
+        try {
+            final CircularFifoQueue<PriorityQueue<Integer>> queue = new CircularFifoQueue<PriorityQueue<Integer>>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A14
+    @Test
+    public void testInitStackCircularFifoQueue() {
+        try {
+            final CircularFifoQueue<Stack<Integer>> queue = new CircularFifoQueue<Stack<Integer>>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A15
+    @Test
+    public void testInitWithStringShouldBeValid() {
+        String str = "test string";
+        try {
+            final CircularFifoQueue<String> fifo = new CircularFifoQueue<String>();
+
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A16
+    @Test
+    public void testInitWithByteShouldBeValid() {
+        try {
+            final CircularFifoQueue<Byte> fifo = new CircularFifoQueue<Byte>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A17
+    @Test
+    public void testInitWithShortShouldBeValid() {
+        try {
+            final CircularFifoQueue<Short> fifo = new CircularFifoQueue<Short>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A18
+    @Test
+    public void testInitWithLongShouldBeValid() {
+        try {
+            final CircularFifoQueue<Long> fifo = new CircularFifoQueue<Long>();
+
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A19
+    @Test
+    public void testInitWithFloatShouldBeValid() {
+        try {
+            final CircularFifoQueue<Float> fifo = new CircularFifoQueue<Float>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A20
+    @Test
+    public void testInitWithDoubleShouldBeValid() {
+        try {
+            final CircularFifoQueue<Double> fifo = new CircularFifoQueue<Double>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A21
+    @Test
+    public void testInitWithBooleanShouldBeValid() {
+        try {
+            final CircularFifoQueue<Boolean> fifo = new CircularFifoQueue<Boolean>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: A22
+    @Test
+    public void testInitWithCharShouldBeValid() {
+        try {
+            final CircularFifoQueue<Character> fifo = new CircularFifoQueue<Character>();
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: C1, C2
+    @Test
+    public void testIsFirstInFirstOut() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(5);
+
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertEquals(queue.poll(), "1");
+    }
+
     // case ID: D1, J1
     @Test
     public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_AndAddTwoElement_ShouldNotContainEarliestElement() {
@@ -254,10 +392,80 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         assertFalse(queue.contains(1));
     }
 
-    /**
-     * Step G
-     * Test Default constructor queue size should have maxElements 32.
-     */
+    // case ID: E1
+    @Test
+    public void testAddSameElementTypeWhenSizeIsValid() {
+        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        try {
+            queue.add(1);
+            queue.add(2);
+            queue.add(3);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: E2
+    @Test
+    // @Ignore
+    public void testAddVaryElementTypeWhenSizeIsValidShouldBuildFailed() {
+        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        queue.add(1);
+        // queue.add("2"); Build failed
+    }
+
+    // case ID: F1
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testGetWhenInputIndexIsLowerBoundary() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        assertEquals("1", queue.get(0));
+    }
+
+    // case ID: F2
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testGetWhenInputIndexIsBelowLowerBoundaryShouldBeInvalid() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        assertThrows(NoSuchElementException.class, () -> queue.get(-1));
+    }
+
+    // case ID: F3
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testGetWhenInputIndexIsValidAndNotBoundaryValue() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertEquals("2", queue.get(1));
+    }
+
+    // case ID: F4
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testGetWhenInputIndexIsUpperBoundary() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertEquals("3", queue.get(2));
+    }
+
+    // case ID: F5
+    @Test
+    @SuppressWarnings("unchecked")
+    public void testGetWhenInputIsOverUpperBoundary() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertThrows(NoSuchElementException.class, () -> queue.get(4));
+    }
+
     // case ID: G1, O1
     @Test
     public void testConstructorDefaultSize() {
@@ -265,11 +473,371 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         assertEquals(32, queue.maxSize());
     }
 
-    /**
-     * Step Q
-     * Test constructor with a different type of Collections and the collection size
-     * equals to queue size.
-     */
+    // case ID: J2-1
+    @Test
+    public void testAddIntegerIsValid() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
+        try {
+            // act
+            fifo.add(3);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-2
+    @Test
+    public void testAddArrayListIsValid() {
+        // arrange
+        final CircularFifoQueue<ArrayList<Integer>> fifo = new CircularFifoQueue<ArrayList<Integer>>();
+        ArrayList<Integer> arr = new ArrayList<>();
+        try {
+            // act
+            fifo.add(arr);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-3
+    @Test
+    public void testAddHashSetIsValid() {
+        // arrange
+        final CircularFifoQueue<HashSet<Integer>> fifo = new CircularFifoQueue<HashSet<Integer>>();
+        HashSet<Integer> set = new HashSet<>();
+        try {
+            // act
+            fifo.add(set);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-4
+    @Test
+    public void testAddTreeSetIsValid() {
+        // arrange
+        final CircularFifoQueue<TreeSet<Integer>> fifo = new CircularFifoQueue<TreeSet<Integer>>();
+        TreeSet<Integer> set = new TreeSet<>();
+        try {
+            // act
+            fifo.add(set);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-5
+    @Test
+    public void testAddLinkedListIsValid() {
+        // arrange
+        final CircularFifoQueue<LinkedList<Integer>> fifo = new CircularFifoQueue<LinkedList<Integer>>();
+        LinkedList<Integer> list = new LinkedList<>();
+        try {
+            // act
+            fifo.add(list);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-6
+    @Test
+    public void testAddVectorIsValid() {
+        // arrange
+        final CircularFifoQueue<Vector<Integer>> fifo = new CircularFifoQueue<Vector<Integer>>();
+        Vector<Integer> v = new Vector<>();
+        try {
+            // act
+            fifo.add(v);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-7
+    @Test
+    public void testAddPriorityQueueIsValid() {
+        // arrange
+        final CircularFifoQueue<PriorityQueue<Integer>> fifo = new CircularFifoQueue<PriorityQueue<Integer>>();
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
+        try {
+            // act
+            fifo.add(heap);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-8
+    @Test
+    public void testAddStackIsValid() {
+        // arrange
+        final CircularFifoQueue<Stack<Integer>> fifo = new CircularFifoQueue<Stack<Integer>>();
+        Stack<Integer> stack = new Stack<>();
+        try {
+            // act
+            fifo.add(stack);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-9
+    @Test
+    public void testAddStringIsValid() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<String> fifo = new CircularFifoQueue<>(maxSize);
+        String str = "test string";
+        try {
+            // act
+            fifo.add(str);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-10
+    @Test
+    public void testAddByteIsValid() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Byte> fifo = new CircularFifoQueue<Byte>(maxSize);
+        Byte b = 2;
+        try {
+            // act
+            fifo.add(b);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-11
+    @Test
+    public void testAddShortIsValid() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Short> fifo = new CircularFifoQueue<Short>(maxSize);
+        Short sh = 2;
+        try {
+            // act
+            fifo.add(sh);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-12
+    @Test
+    public void testAddLongIsValid() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Long> fifo = new CircularFifoQueue<Long>(maxSize);
+        long lng = 5;
+        try {
+            // act
+            fifo.add(lng);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-13
+    @Test
+    public void testAddFloatIsValid() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Float> fifo = new CircularFifoQueue<Float>(maxSize);
+        float f = 0.05f;
+        try {
+            // act
+            fifo.add(f);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-14
+    @Test
+    public void testAddDoubleIsValid() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Double> fifo = new CircularFifoQueue<Double>(maxSize);
+        Double d = 0.05;
+        try {
+            // act
+            fifo.add(d);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-15
+    @Test
+    public void testAddBooleanIsValid() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Boolean> fifo = new CircularFifoQueue<Boolean>(maxSize);
+        Boolean b = true;
+        try {
+            // act
+            fifo.add(b);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-16
+    @Test
+    public void testAddCharacterIsValid() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Character> fifo = new CircularFifoQueue<Character>(maxSize);
+        Character ch = 'a';
+        try {
+            // act
+            fifo.add(ch);
+        } catch (Exception e) {
+            // assert
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: J2-17
+    @Test
+    public void testAddNullShouldThrowException() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(maxSize);
+        // act & assert
+        assertThrows(NullPointerException.class, () -> fifo.add(null));
+    }
+    // case ID: k1
+    @Test
+    public void testSizeOfEmptyCircularFifoQueueShouldBeZero() {
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
+        int expectedSize = 0;
+        assertEquals(expectedSize, fifo.size());
+    }
+
+    // case ID: K2
+    @Test
+    public void testSizeFnUpperBoundary() {
+        int maxSize = 3;
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
+        fifo.add(1);
+        fifo.add(2);
+        fifo.add(3);
+        assertEquals(maxSize, fifo.size());
+    }
+
+
+    // case ID: L1. S2
+    @Test
+    public void testNotShouldBeEmptyIfSizeIsNotZero() {
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
+        fifo.add(1);
+        int expectedSize = 1;
+        assertEquals(expectedSize, fifo.size());
+        assertFalse(fifo.isEmpty());
+    }
+
+    // case ID: L2, S1
+    // isEmpty()
+    @Test
+    public void testShouldBeEmptyIfSizeIsZero() {
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
+        int expectedSize = 0;
+        assertEquals(expectedSize, fifo.size());
+        assertTrue(fifo.isEmpty());
+    }
+
+    // case ID: M1
+    // isFull()
+    @Test
+    public void testShouldNotBeFullIfSizeNotReachMaxSize() {
+        int maxSize = 3;
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
+        assertFalse(fifo.isFull());
+    }
+
+    // case ID: M2
+    // isFull() -> should fail, potential mutant
+    @Test
+    public void testShouldBeFullIfSizeReachMaxSize() {
+        int maxSize = 3;
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
+        fifo.add(1);
+        fifo.add(2);
+        fifo.add(3);
+        assertEquals(maxSize, fifo.size());
+        assertFalse(fifo.isFull());
+    }
+
+
+    // case ID: N1
+    @Test
+    public void testisAtFullCapacityShouldBeFalseWhenNotReachMaxSize() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
+
+        // assert
+        assertFalse(fifo.isAtFullCapacity());
+    }
+
+    // case ID: N2
+    @Test
+    public void testisAtFullCapacityShouldBeTrueWhenReachMaxSize() {
+        // arrange
+        int maxSize = 3;
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
+        fifo.add(1);
+        fifo.add(2);
+        fifo.add(3);
+
+        // assert
+        assertTrue(fifo.isAtFullCapacity());
+    }
+
+    // case ID: P1
+    @Test
+    public void testQueueIsNotEmptyWhenThereAreElemsAndNotClear() {
+        // arrange
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
+        fifo.add(1);
+
+        // assert
+        assertFalse(fifo.isEmpty());
+    }
+    // case ID: P2
+    // Clear()
+    @Test
+    public void testSizeShouldBeZeroAfterClear() {
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
+        fifo.add(1);
+        fifo.clear();
+        assertTrue(fifo.isEmpty());
+    }
+
     // case ID: Q1
     @Test
     public void testQueueSizeSize_ShouldBeEqualtoHashSetSize() {
@@ -353,569 +921,8 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         assertThrows(NullPointerException.class, () -> new CircularFifoQueue<Integer>(null));
     }
 
-    // 千珊
-    /**
-     * Step C
-     * Test the queue should be first-in-first-out.
-     */
-    // case ID: C1, C2
-    @Test
-    public void testIsFirstInFirstOut() {
-        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(5);
-
-        queue.add((E) "1");
-        queue.add((E) "2");
-        queue.add((E) "3");
-        assertEquals(queue.poll(), "1");
-    }
-    /**
-     * Step E
-     * Test the relationship between element types in a certain queue.
-     */
-    // case ID: E1
-    @Test
-    public void testAddSameElementTypeWhenSizeIsValid() {
-        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
-        try {
-            queue.add(1);
-            queue.add(2);
-            queue.add(3);
-        } catch (Exception e) {
-            // assert
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: E2
-    @Test
-    // @Ignore
-    public void testAddVaryElementTypeWhenSizeIsValidShouldBuildFailed() {
-        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
-        queue.add(1);
-        // queue.add("2"); Build failed
-    }
-
-    /**
-     * MC/DC test for {@link #get(int)}.
-     */
-    // | Test case | index < 0 | index >= sz|
-    // |-----------|-----------|------------|
-    // | 1 | T | F |
-    // | 2 | F | F |
-    // | 3 | F | T |
-
-    @Test
-    public void testGetElementWhenIndexLessThanZeroThrowError() {
-        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
-        queue.add(1);
-        queue.add(2);
-        queue.add(3);
-        assertThrows(NoSuchElementException.class, () -> queue.get(-1));
-    }
-
-    @Test
-    public void testGetElementWhenIndexGreaterThanZeroAndLessThanSize() {
-        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
-        queue.add((E) "1");
-        queue.add((E) "2");
-        queue.add((E) "3");
-        assertEquals("2", queue.get(1));
-    }
-
-    @Test
-    public void testGetElementWhenIndexGreaterThanSizeThrowError() {
-        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
-        queue.add(1);
-        queue.add(2);
-        queue.add(3);
-        assertThrows(NoSuchElementException.class, () -> queue.get(3));
-    }
-    /**
-     * test remove using CFG & base path strategy
-     * 3 test cases
-     */
-    @Test
-    public void testRemoveWhenSizeIsZeroThrowError() {
-        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
-        assertThrows(NoSuchElementException.class, () -> queue.remove());
-    }
-
-    @Test
-    public void testRemoveWhenSizeIsOne() {
-        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
-        queue.add((E) "1");
-        assertEquals("1", queue.remove());
-    }
-
-    @Test
-    public void testRemoveWhenStartEqualsMaxElements() {
-        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
-        queue.add((E) "1");
-        queue.add((E) "2");
-        queue.add((E) "3");
-        queue.remove();
-        queue.remove();
-        assertEquals("3", queue.remove());
-    }
-
-    /**
-     * Step. A
-     * Test syntactic validity with respect to the queue size and Element of queue
-     * by base choice. These values are tested separately without considering
-     * combinations
-     */
-    // case ID: A9
-    @Test
-    public void testAddHashSetToCircularFifoQueue() {
-        try {
-            final CircularFifoQueue<HashSet<Integer>> queue = new CircularFifoQueue<HashSet<Integer>>();
-            queue.add(new HashSet<Integer>());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A10
-    @Test
-    public void testAddTreeSetToCircularFifoQueue() {
-        try {
-            final CircularFifoQueue<TreeSet<Integer>> queue = new CircularFifoQueue<TreeSet<Integer>>();
-            queue.add(new TreeSet<Integer>());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A11
-    @Test
-    public void testAddLinkedListToCircularFifoQueue() {
-        try {
-            final CircularFifoQueue<LinkedList<Integer>> queue = new CircularFifoQueue<LinkedList<Integer>>();
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A13
-    @Test
-    public void testAddPriorityQueueToCircularFifoQueue() {
-        try {
-            final CircularFifoQueue<PriorityQueue<Integer>> queue = new CircularFifoQueue<PriorityQueue<Integer>>();
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A12
-    @Test
-    public void testAddVectorToCircularFifoQueue() {
-        try {
-            final CircularFifoQueue<Vector<Integer>> queue = new CircularFifoQueue<Vector<Integer>>();
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A14
-    @Test
-    public void testAddStackToCircularFifoQueue() {
-        try {
-            final CircularFifoQueue<Stack<Integer>> queue = new CircularFifoQueue<Stack<Integer>>();
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    /**
-     * Step. F
-     * Test returning the element at the specified position in this queue.
-     */
-    // case ID: F1
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testGetWhenInputIndexIsLowerBoundary() {
-        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
-        queue.add((E) "1");
-        assertEquals("1", queue.get(0));
-    }
-
-    // case ID: F2
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testGetWhenInputIndexIsBelowLowerBoundaryShouldBeInvalid() {
-        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
-        queue.add((E) "1");
-        assertThrows(NoSuchElementException.class, () -> queue.get(-1));
-    }
-
-    // case ID: F3
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testGetWhenInputIndexIsValidAndNotBoundaryValue() {
-        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
-        queue.add((E) "1");
-        queue.add((E) "2");
-        queue.add((E) "3");
-        assertEquals("2", queue.get(1));
-    }
-
-    // case ID: F4
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testGetWhenInputIndexIsUpperBoundary() {
-        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
-        queue.add((E) "1");
-        queue.add((E) "2");
-        queue.add((E) "3");
-        assertEquals("3", queue.get(2));
-    }
-
-    // case ID: F5
-    @Test
-    @SuppressWarnings("unchecked")
-    public void testGetWhenInputIsOverUpperBoundary() {
-        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
-        queue.add((E) "1");
-        queue.add((E) "2");
-        queue.add((E) "3");
-        assertThrows(NoSuchElementException.class, () -> queue.get(4));
-    }
-
-    // John
-
-    // Step A - Test Case Specs
-    // case ID: A1
-    @Test
-    public void testInitWithSizeEqualsToThree() {
-        int size = 3;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(size);
-        assertEquals(size, fifo.maxSize());
-    }
-
-    // case ID: A3
-    @Test
-    public void testInitWithSizeEqualsToOne() {
-        int size = 1;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(size);
-        assertEquals(size, fifo.maxSize());
-    }
-
-    // case ID: A2
-    @Test
-    public void testInitWithSizeEqualToZeroShouldThrowException() {
-        int size = 0;
-        assertThrows(IllegalArgumentException.class, () -> new CircularFifoQueue<Integer>(size));
-    }
-
-
-    // case ID: A5
-    @Test
-    public void testInitWithSizeExceedMaxIntShouldThrowException() {
-        int offset = 10;
-        int maxSize = Integer.MAX_VALUE + offset;
-        assertThrows(IllegalArgumentException.class, () -> new CircularFifoQueue<Integer>(maxSize));
-    }
-
-    // case ID: A4
-    @Test
-    public void testInitWithSizeEqualsToMaxInt() {
-    //    int maxSize = Integer.MAX_VALUE;
-    //    final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(maxSize);
-    //    assertEquals(maxSize, fifo.maxSize());
-    }
-
-    // case ID: A6
-    @Test
-    public void testInitWithNullElementShouldThrowException() {
-        assertThrows(NullPointerException.class, () -> new CircularFifoQueue<Integer>(null));
-    }
-
-    @Test
-    public void testInitWithPrimitiveTypeShouldHaveSyntaxError() {
-        // Initialize CircularFifoQueue with primitive type should have syntax error
-        // final CircularFifoQueue<int> fifo = new CircularFifoQueue<int>(maxSize);
-    }
-
-    // case ID: A15
-    @Test
-    public void testInitWithStringShouldBeValid() {
-        int expectedSize = 1;
-        final CircularFifoQueue<String> fifo = new CircularFifoQueue<String>();
-        String str = "test string";
-        try {
-            fifo.add(str);
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A20
-    @Test
-    public void testInitWithDoubleShouldBeValid() {
-        int expectedSize = 1;
-        final CircularFifoQueue<Double> fifo = new CircularFifoQueue<Double>();
-        Double d = 0.05;
-        try {
-            fifo.add(d);
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A20
-    @Test
-    public void testInitWithByteShouldBeValid() {
-        int expectedSize = 1;
-        final CircularFifoQueue<Byte> fifo = new CircularFifoQueue<Byte>();
-        Byte b = 2;
-        try {
-            fifo.add(b);
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A17
-    @Test
-    public void testInitWithShortShouldBeValid() {
-        int expectedSize = 1;
-        final CircularFifoQueue<Short> fifo = new CircularFifoQueue<Short>();
-        Short sh = 2;
-        try {
-            fifo.add(sh);
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A18
-    @Test
-    public void testInitWithLongShouldBeValid() {
-        int expectedSize = 1;
-        final CircularFifoQueue<Long> fifo = new CircularFifoQueue<Long>();
-        long lng = 5;
-        try {
-            fifo.add(lng);
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A21
-    @Test
-    public void testInitWithBooleanShouldBeValid() {
-        int expectedSize = 1;
-        final CircularFifoQueue<Boolean> fifo = new CircularFifoQueue<Boolean>();
-        Boolean flag = true;
-        try {
-            fifo.add(flag);
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A21
-    @Test
-    public void testInitWithCharShouldBeValid() {
-        int expectedSize = 1;
-        final CircularFifoQueue<Character> fifo = new CircularFifoQueue<Character>();
-        Character ch = 'a';
-        try {
-            fifo.add(ch);
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    // case ID: A19
-    @Test
-    public void testInitWithFloatShouldBeValid() {
-        int expectedSize = 1;
-        final CircularFifoQueue<Float> fifo = new CircularFifoQueue<Float>();
-        float f = 0.05f;
-        try {
-            fifo.add(Float.valueOf(f));
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-
-    @Test
-    public void testAddNullShouldThrowException() {
-        int maxSize = 3;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(maxSize);
-        assertThrows(NullPointerException.class, () -> fifo.add(null));
-    }
-
-    @Test
-    public void testAddIntergerToCircularFifoQueue() {
-        int expectedSize = 1;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>();
-        try {
-            fifo.add(1);
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    @Test
-    public void testAddCollectionToCircularFifoQueue() {
-        int expectedSize = 1;
-        final CircularFifoQueue<ArrayList<Integer>> fifo = new CircularFifoQueue<ArrayList<Integer>>();
-        ArrayList<Integer> arr = new ArrayList<>();
-        try {
-            fifo.add(arr);
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    @Test
-    public void testOfferNullShouldThrowException() {
-        int maxSize = 3;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(maxSize);
-        assertThrows(NullPointerException.class, () -> fifo.offer(null));
-    }
-
-    @Test
-    public void testOfferIntergerToCircularFifoQueue() {
-        int maxSize = 3;
-        int expectedSize = 1;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(maxSize);
-        try {
-            fifo.offer(1);
-            assertEquals(expectedSize, fifo.size());
-        } catch (Exception e) {
-            fail("should not have thrown error");
-        }
-    }
-
-    @Test
-    public void testOfferCollectionToCircularFifoQueue() {
-        int maxSize = 3;
-        int expectedSize = 1;
-        final CircularFifoQueue<ArrayList<Integer>> fifo = new CircularFifoQueue<ArrayList<Integer>>(maxSize);
-        ArrayList<Integer> arr = new ArrayList<>();
-        fifo.offer(arr);
-        assertEquals(maxSize, fifo.maxSize());
-        assertEquals(expectedSize, fifo.size());
-    }
-
-    /**
-     ************************* Structural Test (white-box) *************************
-     */
-
-    // Size()
-    @Test
-    public void testSizeOfEmptyCircularFifoQueueShouldBeZero() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
-        int expectedSize = 0;
-        assertEquals(expectedSize, fifo.size());
-    }
-
-    @Test
-    public void testSizeShouldBeThreeAfterAddThreeElement() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
-        fifo.add(1);
-        fifo.add(2);
-        fifo.add(3);
-        int expectedSize = 3;
-        assertEquals(expectedSize, fifo.size());
-    }
-
-    @Test
-    public void testSizeShouldBeMaxSizeAfterAddMoreElement() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
-        fifo.add(1);
-        fifo.add(2);
-        fifo.add(3);
-        fifo.add(4);
-        fifo.add(5);
-        int expectedSize = 3;
-        assertEquals(expectedSize, fifo.size());
-    }
-
-    // case ID: L2
-    // isEmpty()
-    @Test
-    public void testShouldBeEmptyIfSizeIsZero() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
-        int expectedSize = 0;
-        assertEquals(expectedSize, fifo.size());
-        assertTrue(fifo.isEmpty());
-    }
-
-    // case ID: L1
-    @Test
-    public void testNotShouldBeEmptyIfSizeIsNotZero() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
-        fifo.add(1);
-        int expectedSize = 1;
-        assertEquals(expectedSize, fifo.size());
-        assertFalse(fifo.isEmpty());
-    }
-
-    // case ID: M2
-    // isFull() -> should fail, potential mutant
-    @Test
-    public void testShouldBeFullIfSizeReachMaxSize() {
-        int maxSize = 3;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
-        fifo.add(1);
-        fifo.add(2);
-        fifo.add(3);
-        assertEquals(maxSize, fifo.size());
-        assertFalse(fifo.isFull());
-    }
-
-    // case ID: M1
-    // isFull()
-    @Test
-    public void testShouldNotBeFullIfSizeNotReachMaxSize() {
-        int maxSize = 3;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
-        assertFalse(fifo.isFull());
-    }
-
-    // Clear()
-    @Test
-    public void testSizeShouldBeZeroAfterClear() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
-        fifo.add(1);
-        fifo.clear();
-        assertTrue(fifo.isEmpty());
-    }
-
-    // peek()
-    @Test
-    public void testPeekShouldReturnNullIfEmpty() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
-        fifo.peek();
-        assertTrue(fifo.isEmpty());
-        assertNull(fifo.peek());
-    }
-
-    // peek()
-    @Test
-    public void testPeekShouldReturnOldestElement() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
-        fifo.add(1);
-        fifo.add(2);
-        int expectedElement = 1;
-        assertEquals(expectedElement, (E) fifo.peek());
-    }
-
+    // ---------- White Box Testing -----------
+    // case ID: R1
     // Test iterator hasNext() with F F
     @Test
     public void testInitialIteratorHasNextElementIfNotEmpty() {
@@ -930,6 +937,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         assertFalse(itr.hasNext());
     }
 
+    // case ID: R2
     // Test iterator hasNext() with T F
     @Test
     public void testHasNoNextElementIfEmpty() {
@@ -938,6 +946,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         assertFalse(itr.hasNext());
     }
 
+    // case ID: R3
     // Test iterator hasNext() with F T
     @Test
     public void testNoNextementIfIteratorReachEnd() {
@@ -948,6 +957,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         assertFalse(itr.hasNext());
     }
 
+    // case ID: U1
     @Test
     public void testNoNextElementShouldThrowException() {
         final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
@@ -955,6 +965,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         assertThrows(NoSuchElementException.class, () -> itr.next());
     }
 
+    // case ID: U2
     @Test
     public void testShouldReturnNextElement() {
         final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
@@ -967,6 +978,46 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         }
     }
 
+    /**
+     * MC/DC test for {@link #get(int)}.
+     */
+    // | Test case | index < 0 | index >= sz|
+    // |-----------|-----------|------------|
+    // | 1 | T | F |
+    // | 2 | F | F |
+    // | 3 | F | T |
+
+    // case ID: V1
+    @Test
+    public void testGetElementWhenIndexLessThanZeroThrowError() {
+        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+        assertThrows(NoSuchElementException.class, () -> queue.get(-1));
+    }
+
+    // case ID: V2
+    @Test
+    public void testGetElementWhenIndexGreaterThanZeroAndLessThanSize() {
+        final CircularFifoQueue<E> queue = new CircularFifoQueue<>(3);
+        queue.add((E) "1");
+        queue.add((E) "2");
+        queue.add((E) "3");
+        assertEquals("2", queue.get(1));
+    }
+
+    // case ID: V3
+    @Test
+    public void testGetElementWhenIndexGreaterThanSizeThrowError() {
+        final CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        queue.add(1);
+        queue.add(2);
+        queue.add(3);
+        assertThrows(NoSuchElementException.class, () -> queue.get(3));
+    }
+
+    // case ID: X1
     // Iterator.remove()
     @Test
     public void testIteratorRemove1() {
@@ -975,6 +1026,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         assertThrows(IllegalStateException.class, () -> itr.remove());
     }
 
+    // case ID: X2
     @Test
     public void testIteratorRemove2() {
         final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
@@ -988,8 +1040,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         }
     }
 
-    // if (start <= lastReturnedIndex && pos <= end)
-    // T T
+    // case ID: X3
     @Test
     public void testIteratorRemove3() {
         final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
@@ -1009,12 +1060,6 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
             fail("should not have thrown error");
         }
     }
-
-
-
-
-
-
 
     /**
      ************************* Native Test case *************************
