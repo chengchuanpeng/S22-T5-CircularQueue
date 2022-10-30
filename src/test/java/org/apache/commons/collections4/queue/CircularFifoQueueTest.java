@@ -22,18 +22,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.HashSet;
-import java.util.TreeSet;
-import java.util.LinkedList;
-import java.util.Vector;
-import java.util.Stack;
-import java.util.PriorityQueue;
-import java.util.NoSuchElementException;
-import java.util.Queue;
+import java.util.*;
 
 import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
@@ -331,9 +320,9 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         queue.add((E) "1");
         queue.add((E) "2");
         queue.add((E) "3");
-        assertEquals(queue.poll(), "1");
-        assertEquals(queue.poll(), "2");
-        assertEquals(queue.poll(), "3");
+        assertEquals("1", queue.poll());
+        assertEquals("2", queue.poll());
+        assertEquals("3", queue.poll());
     }
 
     // case ID: D1, J1
@@ -349,41 +338,14 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         assertFalse(queue.contains(1));
     }
 
+
     // case ID: D2
-    @Test
-    public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_AndAddElevenElement_ShouldNotContainEarliestElement() {
-
-        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(10);
-        for (int i = 1; i <= 11; i++)
-            queue.add(i);
-        int queueValue = queue.peek();
-        // make sure queue element is oldest
-        assertEquals(2, queueValue);
-        // first element is not in queue
-        assertFalse(queue.contains(1));
-    }
-
-    // case ID: D3
     @Test
     public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_AndOfferOneElement_ShouldNotContainEarliestElement() {
 
         CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(1);
         queue.offer(1);
         queue.offer(2);
-        int queueValue = queue.peek();
-        // make sure queue element is oldest
-        assertEquals(2, queueValue);
-        // first element is not in queue
-        assertFalse(queue.contains(1));
-    }
-
-    // case ID: D4
-    @Test
-    public void testCircularFifoQueueCircular_WhenQueueSizeIsMaxPopTheOldestElement_AndQueueSizeIsTenOfferlevenElement_ShouldNotContainEarliestElement() {
-
-        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(10);
-        for (int i = 1; i <= 11; i++)
-            queue.offer(i);
         int queueValue = queue.peek();
         // make sure queue element is oldest
         assertEquals(2, queueValue);
@@ -952,7 +914,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // case ID: T3
     @Test
-    public void testNoNextementIfIteratorReachEnd() {
+    public void testNoNextElementIfIteratorReachEnd() {
         final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
         Iterator<Integer> itr = fifo.iterator();
         fifo.add(1);
@@ -1074,7 +1036,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
     // case ID: Y1
     // Iterator.remove()
     @Test
-    public void testIteratorRemove1() {
+    public void testIteratorRemoveInvalidIndex() {
         final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
         Iterator<Integer> itr = fifo.iterator();
         assertThrows(IllegalStateException.class, itr::remove);
@@ -1082,11 +1044,9 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // case ID: Y2
     @Test
-    public void testIteratorRemove2() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
+    public void testIteratorRemoveFirstIndex() {
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
         fifo.add(1);
-        fifo.add(2);
-        fifo.add(3);
         Iterator<Integer> itr = fifo.iterator();
         itr.next();
         try {
@@ -1098,17 +1058,35 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // case ID: Y3
     @Test
-    public void testIteratorRemove3() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
+    public void testIteratorRemoveAtIndexBetweenStartAndEnd() {
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
         fifo.add(1);
         fifo.add(2);
         fifo.add(3);
-        fifo.add(4);
-        fifo.add(5);
         Iterator<Integer> itr = fifo.iterator();
         itr.next();
         itr.next();
         int expectedSize = 4;
+        try {
+            itr.remove();
+            assertEquals(expectedSize, fifo.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
+    }
+
+    // case ID: Y4
+    @Test
+    public void testIteratorRemoveAtEndPos() {
+        final CircularFifoQueue<E> fifo = new CircularFifoQueue<>(3);
+        fifo.add((E) "1");
+        fifo.add((E) "2");
+        fifo.add((E) "3");
+        int expectedSize = 2;
+        Iterator<E> itr = fifo.iterator();
+        itr.next();
+        itr.next();
+        itr.next();
         try {
             itr.remove();
             assertEquals(expectedSize, fifo.size());
