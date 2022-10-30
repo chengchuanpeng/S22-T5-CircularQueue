@@ -144,8 +144,8 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     @Test
     public void testInitWithSizeEqualsToMaxInt() {
-        int maxSize = Integer.MAX_VALUE;
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<Integer>(maxSize);
+        int maxSize = Integer.MAX_VALUE - 2;
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(maxSize);
         assertEquals(maxSize, fifo.maxSize());
     }
 
@@ -218,7 +218,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         final CircularFifoQueue<Long> fifo = new CircularFifoQueue<Long>();
         long lng = 5;
         try {
-            fifo.add(Long.valueOf(lng));
+            fifo.add(lng);
             assertEquals(expectedSize, fifo.size());
         } catch (Exception e) {
             fail("should not have thrown error");
@@ -372,19 +372,6 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     @Test
     public void testSizeShouldBeMaxSizeAfterAddMoreElement() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
-        fifo.add(1);
-        fifo.add(2);
-        fifo.add(3);
-        fifo.add(4);
-        fifo.add(5);
-        int expectedSize = 3;
-        assertEquals(expectedSize, fifo.size());
-    }
-
-    // remove()
-    @Test
-    public void testSizeShouldBeTwoAfterRemove() {
         final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(3);
         fifo.add(1);
         fifo.add(2);
@@ -563,20 +550,24 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         }
     }
 
-    // T F
     @Test 
     public void testItertorRemove4() {
-        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>(5);
+        final CircularFifoQueue<Integer> fifo = new CircularFifoQueue<>();
         fifo.add(1);
         fifo.add(2);
         fifo.add(3);
-        fifo.add(4);
-        fifo.add(5);
-
+        Iterator<Integer> itr = fifo.iterator();
+        itr.next();
+        itr.next();
+        itr.next();
+        int expectedSize = 2;
+        try {
+            itr.remove();
+            assertEquals(expectedSize, fifo.size());
+        } catch (Exception e) {
+            fail("should not have thrown error");
+        }
     }
-
-
-
     /**
      ************************* Native Test case *************************
      */
