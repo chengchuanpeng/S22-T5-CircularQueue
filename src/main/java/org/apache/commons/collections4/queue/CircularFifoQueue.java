@@ -539,7 +539,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // Q1
     @Test
-    public void testInitWithHashSetElementShouldBeValid() {
+    public void testQueueSizeSize_ShouldBeEqualtoHashSetSize() {
         HashSet<Integer> set = new HashSet<Integer>();
         set.add(1);
         set.add(2);
@@ -550,7 +550,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // Q2
     @Test
-    public void testInitWithArrayListElementShouldBeValid() {
+    public void testQueueSizeSize_ShouldBeEqualtoArrayListSize() {
         ArrayList<Integer> list = new ArrayList<Integer>();
         list.add(1);
         list.add(2);
@@ -561,7 +561,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // Q3
     @Test
-    public void testInitWithTreeSetElementShouldBeValid() {
+    public void testQueueSizeSize_ShouldBeEqualtoTreeSetSize() {
         TreeSet<Integer> set = new TreeSet<Integer>();
         set.add(1);
         set.add(2);
@@ -572,7 +572,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // Q4
     @Test
-    public void testInitWithLinkedListElementShouldBeValid() {
+    public void testQueueSizeSize_ShouldBeEqualtoLinkedListSize() {
         LinkedList<Integer> list = new LinkedList<Integer>();
         list.add(1);
         list.add(2);
@@ -583,7 +583,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // Q5
     @Test
-    public void testInitWithVectorElementShouldBeValid() {
+    public void testQueueSizeSize_ShouldBeEqualtoVectorSize() {
         Vector<Integer> list = new Vector<Integer>();
         list.add(1);
         list.add(2);
@@ -594,7 +594,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // Q6
     @Test
-    public void testInitWithPriorityQueueElementShouldBeValid() {
+    public void testQueueSizeSize_ShouldBeEqualtoPriorityQueueSize() {
         PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
         pq.add(1);
         pq.add(2);
@@ -605,7 +605,7 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
 
     // Q7
     @Test
-    public void testInitWithStackElementShouldBeValid() {
+    public void testQueueSizeSize_ShouldBeEqualtoStackSize() {
         Stack<Integer> stack = new Stack<Integer>();
         stack.add(1);
         stack.add(2);
