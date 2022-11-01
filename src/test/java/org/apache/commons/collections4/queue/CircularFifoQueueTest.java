@@ -470,4 +470,26 @@ public class CircularFifoQueueTest<E> extends AbstractQueueTest<E> {
         return (CircularFifoQueue<E>) super.getCollection();
     }
 
+    // Z1
+    @Test
+    public void testSizeShouldReturnTwo_WhenQueueAddThreeTimesAndRemoveOneTime() {
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        queue.add(1);
+        queue.remove();
+        queue.add(2);
+        queue.add(3);
+        // size should be 2, but size is 4
+        assertEquals(2, queue.size());
+    }
+
+    // Z2
+    @Test
+    public void testSizeShouldReturnTwo_WhenQueueAddTwoTimesAndRemoveOneTime() {
+        CircularFifoQueue<Integer> queue = new CircularFifoQueue<>(3);
+        queue.add(1);
+        queue.remove();
+        queue.add(2);
+        assertEquals(1, queue.size());
+    }
+
 }
